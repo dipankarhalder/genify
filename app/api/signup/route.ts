@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 import { dbConnect } from "@/config/db";
 import { UserRequestBody } from "@/interface";
-import { user_role } from "@/config/constant";
 import Users from "@/models/Users";
 
 /* Super User Registration */
@@ -14,18 +13,7 @@ export async function POST(req: Request) {
 
     /* get the info from request body */
     const body: UserRequestBody = await req.json();
-    const { first_name, last_name, email, phone, role, password } = body;
-
-    /* validate the user role */
-    if (role !== user_role.super) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: `Sorry! we are not allow you to create the user`
-        },
-        { status: 400 }
-      );
-    }
+    const { first_name, last_name, email, phone, password } = body;
 
     /* validate the existing user using email */
     let user_exist = await Users.findOne({ email });
@@ -52,7 +40,7 @@ export async function POST(req: Request) {
     }
 
     /* generate the user id brfore store information */
-    const userIdCreate = `${role.substring(0, 2)}-${first_name.substring(0, 2).toUpperCase()}-${phone.toString().slice(-4)}`;
+    const userIdCreate = `${first_name.substring(0, 2).toUpperCase()}-${phone.toString().slice(-4)}`;
 
     /* hashing password brfore store information */
     const salt = await bcrypt.genSalt(10);
@@ -64,7 +52,6 @@ export async function POST(req: Request) {
       last_name,
       email,
       phone,
-      role,
       user_id: userIdCreate,
       password: hashedPassword
     });

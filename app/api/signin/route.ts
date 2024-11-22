@@ -48,21 +48,30 @@ export async function POST(req: Request) {
     /* generate jwt token */
     const payload = {
       id: user._id,
+      name: `${user.first_name} ${user.last_name}`,
       user_id: user.user_id,
-      role: user.role
     };
     const token = jwt.sign(payload, JWT_SECRET, expireTimer);
 
-    return NextResponse.json(
+    /* store the success response in a variable */
+    const response = NextResponse.json(
       {
         success: true,
-        data: {
-          token,
-          role: user.role,
-        },
+        message: `${user.first_name} ${user.last_name} successfully logged in`,
       },
       { status: 200 }
     );
+
+    /* generate expire time for cookie */
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 1);
+
+    response.cookies.set("access_token", token, { 
+      httpOnly: true,
+      expires 
+    })
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       {
