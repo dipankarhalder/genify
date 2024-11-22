@@ -5,7 +5,7 @@ import { ForgotPasswordComponent } from "@/components/pages/forgotpassword";
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px]">
+    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[400px] p-8 bg-white shadow-2xl rounded-[8px]">
       <div className="flex flex-col space-y-2 text-center mb-4">
         <h1 className="text-2xl font-semibold tracking-tight">
           Forgot Your Password
@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
         <p>
           <Link
             href={auth_router.login_page}
-            className="font-medium underline hover:text-sky-700"
+            className="font-medium underline hover:text-indigo-700"
           >
             Back to login
           </Link>
