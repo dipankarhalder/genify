@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"
 
 import { UserSigninInfo } from "@/interface";
-import { auth_router } from "@/router";
+import { auth_router, admin_router } from "@/router";
 import { SigninSchema } from "@/validate";
 import { super_admin_signin } from "@/services/auth";
 import { SpinnerLoading } from "@/components/shared/spinner";
@@ -43,7 +43,7 @@ export const SigninComponent = () => {
           if (!res.success) {
             toast({ variant: "destructive", title: res.message });
           } else {
-            console.log(res);
+            router.push(admin_router.dashboard);
           }
         }
         setWaiting(false);
@@ -95,7 +95,7 @@ export const SigninComponent = () => {
           <p>
             <Link
               href={auth_router.forgot_page}
-              className="font-medium text-xs underline hover:text-sky-700"
+              className="font-medium text-xs underline hover:text-indigo-700"
             >
               Forgot Password?
             </Link>
@@ -107,7 +107,7 @@ export const SigninComponent = () => {
             Please wait...
           </Button>
         ) : (
-          <Button className="w-full bg-sky-600 h-11 hover:bg-sky-700" type="submit">
+          <Button className="w-full bg-indigo-600 text-md h-11 hover:bg-indigo-700" type="submit">
             Login
           </Button>
         )}

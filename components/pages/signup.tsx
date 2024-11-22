@@ -12,7 +12,6 @@ import { useToast } from "@/hooks/use-toast";
 
 import { UserFormInfo } from "@/interface";
 import { SignupSchema } from "@/validate";
-import { user_role } from "@/config/constant";
 import { super_admin_signup } from "@/services/auth";
 import { SpinnerLoading } from "@/components/shared/spinner";
 
@@ -33,10 +32,7 @@ export const SignupComponent = () => {
 
   const onSubmit = (data: z.infer<typeof SignupSchema>) => {
     setWaiting(true);
-    const payload: UserFormInfo = {
-      ...data,
-      role: user_role.super,
-    }
+    const payload: UserFormInfo = { ...data }
 
     super_admin_signup(payload)
       .then(res => {
@@ -153,7 +149,7 @@ export const SignupComponent = () => {
             Please wait...
           </Button>
         ) : (
-          <Button className="w-full h-11 bg-sky-600 h-11 hover:bg-sky-700" type="submit">
+          <Button className="w-full h-11 text-md bg-indigo-600 h-11 hover:bg-indigo-700" type="submit">
             Register
           </Button>
         )}
