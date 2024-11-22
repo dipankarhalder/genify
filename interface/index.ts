@@ -13,7 +13,6 @@ export interface UserSigninInfo {
 export interface UserFormInfo {
   first_name: string;
   last_name: string;
-  role: string;
   email: string;
   phone: string;
   password: string;
@@ -25,7 +24,6 @@ export interface UserFormInfo {
 export interface UserRequestBody {
   first_name: string;
   last_name: string;
-  role: string;
   user_id: string;
   email: string;
   phone: string;

@@ -3,7 +3,6 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 interface IUsers extends Document {
   first_name: string;
   last_name: string;
-  role: string;
   user_id: string;
   email: string;
   phone: string;
@@ -17,10 +16,6 @@ const UserSchema: Schema<IUsers> = new Schema(
       required: true
     },
     last_name: {
-      type: String,
-      required: true
-    },
-    role: {
       type: String,
       required: true
     },
