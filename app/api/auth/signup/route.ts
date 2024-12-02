@@ -69,7 +69,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        error: "Failed to fetch users."
+        error: "Failed to fetch the resource."
       },
       { status: 500 }
     );
