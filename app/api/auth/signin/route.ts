@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 import { dbConnect } from "@/config/db";
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
     const expires = new Date();
     expires.setDate(expires.getDate() + 1);
 
-    response.cookies.set("access_token", token, { 
+    response.cookies.set("token", token, { 
       httpOnly: true,
       expires 
     })
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        error: "Failed to fetch users."
+        error: "Failed to fetch the resource."
       },
       { status: 500 }
     );
