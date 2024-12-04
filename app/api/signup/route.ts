@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const { first_name, last_name, email, phone, password } = body;
 
     /* validate the existing user using email */
-    let user_exist = await Users.findOne({ email });
+    const user_exist = await Users.findOne({ email });
     if (user_exist) {
       return NextResponse.json(
         {
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
     }
 
     /* validate the existing user using phone */
-    let existing_phone = await Users.findOne({ phone });
+    const existing_phone = await Users.findOne({ phone });
     if (existing_phone) {
       return NextResponse.json(
         {
@@ -65,6 +65,7 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       {

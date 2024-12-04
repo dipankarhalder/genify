@@ -16,8 +16,13 @@ export function middleware(req: NextRequest) {
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL(auth_router.login_page, req.url));
   }
+
+  if (paths.startsWith('/api')) {
+    return NextResponse.next();
+  }
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/:path*"],
+  matcher: ["/"],
 };

@@ -38,7 +38,7 @@ export async function GET() {
         );
       }
 
-      let user_list = await Users.find();
+      const user_list = await Users.find();
       return NextResponse.json(
         {
           success: true,
@@ -46,6 +46,7 @@ export async function GET() {
         },
         { status: 200 }
       );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return NextResponse.json(
         {

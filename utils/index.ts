@@ -1,3 +1,3 @@
 export const expireTimer = {
-  expiresIn: '5s'
+  expiresIn: '1h'
 };
