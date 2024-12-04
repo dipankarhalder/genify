@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,13 +13,16 @@ import { useToast } from "@/hooks/use-toast";
 
 import { UserFormInfo } from "@/interface";
 import { SignupSchema } from "@/validate";
-import { super_admin_signup } from "@/services/auth";
+import { auth_router } from "@/router";
+import { auth_signup } from "@/services/auth";
 import { SpinnerLoading } from "@/components/shared/spinner";
 
 export const SignupComponent = () => {
+  const router = useRouter();
   const { toast } = useToast();
   const [waiting, setWaiting] = useState(false);
 
+  /* handle form data */
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
@@ -30,11 +34,12 @@ export const SignupComponent = () => {
     },
   });
 
+  /* handle sumbit */
   const onSubmit = (data: z.infer<typeof SignupSchema>) => {
     setWaiting(true);
     const payload: UserFormInfo = { ...data }
 
-    super_admin_signup(payload)
+    auth_signup(payload)
       .then(res => {
         if (res) {
           form.reset();
@@ -42,6 +47,7 @@ export const SignupComponent = () => {
             toast({ variant: "destructive", title: res.message });
           } else {
             toast({ title: res.message });
+            router.push(auth_router.login_page);
           }
         }
         setWaiting(false);
