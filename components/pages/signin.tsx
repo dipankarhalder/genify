@@ -10,12 +10,12 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 import { UserSigninInfo } from "@/interface";
 import { auth_router, admin_router } from "@/router";
 import { SigninSchema } from "@/validate";
-import { super_admin_signin } from "@/services/auth";
+import { auth_signin } from "@/services/auth";
 import { SpinnerLoading } from "@/components/shared/spinner";
 
 export const SigninComponent = () => {
@@ -23,6 +23,7 @@ export const SigninComponent = () => {
   const { toast } = useToast();
   const [waiting, setWaiting] = useState(false);
 
+  /* handle form data */
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
     defaultValues: {
@@ -31,13 +32,14 @@ export const SigninComponent = () => {
     },
   });
 
+  /* handle sumbit */
   const onSubmit = async (data: z.infer<typeof SigninSchema>) => {
     setWaiting(true);
     const payload: UserSigninInfo = {
       ...data,
     }
     
-    super_admin_signin(payload)
+    auth_signin(payload)
       .then(res => {
         if (res) {
           if (!res.success) {
