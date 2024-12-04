@@ -5,7 +5,7 @@ export type IChildren = {
 };
 
 
-// UI Interfaces
+/* UI Interfaces */
 export interface UserSigninInfo {
   email: string;
   password: string;
@@ -17,10 +17,17 @@ export interface UserFormInfo {
   phone: string;
   password: string;
 }
+export interface ISublistItem {
+  name: string;
+  path: string;
+};
+export interface ISidebar {
+  name: string;
+  path?: string;
+  sublist: ISublistItem[];
+};
 
-// API Interfaces
-
-/* Super User Interface */
+/* API Interfaces */
 export interface UserRequestBody {
   first_name: string;
   last_name: string;
